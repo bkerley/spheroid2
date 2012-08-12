@@ -1,0 +1,73 @@
+.hero-unit
+  %h1
+    Spheroid
+    %span#super2 2
+  %p
+    Bryce's 
+    %s dumb
+    rad as heck Sphero thing
+  %ul
+    - Spheroid.balls.each do |b|
+      %li&=b
+  %ul
+    - Spheroid.instance_variable_get(:@spheros).each do |s|
+      %li&=s.inspect
+.row
+  .span12
+    %form{action: '/stop', method: 'post', target: 'sphero_frame'}
+      %input{name: '', value: 'stop', type: 'submit', class: 'btn btn-danger'}
+.row
+  .span6
+    %h1 Roll
+    %form.well.form-inline{action: '/roll', method: 'post', target: 'sphero_frame'}
+      %input{name: 'speed', placeholder: 'speed', type: 'text'}
+      %input{name: 'dir', placeholder: 'direction', type: 'text'}
+      %input.btn{name: '', value: 'go', type: 'submit'}
+  .span6
+    %h1 realign
+.row
+  .span12
+    %h1 xx
+.row
+  .span6
+    %h1
+      %span{style: 'color: #f00'} C
+      %span{style: 'color: #0f0'} O
+      %span{style: 'color: #00f'} L
+      %span{style: 'color: #f00'} O
+      %span{style: 'color: #0f0'} R
+      %span{style: 'color: #00f'} !
+    %ul.nav.nav-pills.well
+      %li=swatch 0, 0, 0
+      %li=swatch 128, 128, 128
+      %li=swatch 255, 255, 255
+      %li=swatch 255, 0, 0
+      %li=swatch 0, 255, 0
+      %li=swatch 0, 0, 255
+      %li=swatch 255, 128, 128
+      %li=swatch 255, 0, 255
+      %li=swatch 255, 255, 0
+      %li=swatch 0, 255, 255
+  .span6
+    %h1 Tail Light
+    .well
+      %form.form-inline{action: '/sphero/taillight', method: 'post', target: 'sphero_frame'}
+        %input.btn{name: 'light', value: 'on', type: 'submit'}
+        %input.btn{name: 'light', value: 'off', type: 'submit'}
+.row
+  .span12
+    %h1 Driving
+    %form{action: '/stop', method: 'post', target: 'sphero_frame'}
+      %input{name: '', value: 'stop', type: 'submit', class: 'btn btn-danger'}
+    %ul.nav.well.driving
+      - %w{100 150 200 250}.each do |speed|
+        %li
+          %ul.nav.nav-pills
+            %li #{speed}
+            - (0..23).each do |dir_mul|
+              %li
+                - dir = (dir_mul * 15) % 360
+                %a.btn.btn-mini{href: "/drive?speed=#{speed}&dir=#{dir}", target: 'sphero_frame'}
+                  &=dir
+
+%iframe{name: 'sphero_frame', style: 'display: none'}
