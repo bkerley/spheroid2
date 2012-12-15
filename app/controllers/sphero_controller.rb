@@ -1,5 +1,4 @@
 class SpheroController < ApplicationController
-  # before_filter :render_blank
   def stop
     Spheroid.stop
   end
@@ -13,16 +12,18 @@ class SpheroController < ApplicationController
     if params[:light] == 'off'
       brightness = 0
     end
-    Spheroid.back_led_output = brightness
+    render text: (Spheroid.back_led_output = brightness)
   end
 
   def color
     render text: (Spheroid.rgb params[:r].to_i, params[:g].to_i, params[:b].to_i)
-
-    # head :no_content
   end
 
-  private
-  def render_blank
+  def spin
+    render text: (Spheroid.heading = params[:rate].to_i)
+  end
+
+  def power
+    render text: CGI.escapeHTML(Spheroid.power_state.inspect + Spheroid.bluetooth_info.inspect)
   end
 end

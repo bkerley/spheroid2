@@ -12,6 +12,8 @@ gem 'high_voltage'
 gem 'haml-rails'
 gem 'sass', '3.1.20'
 
+gem 'cans'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

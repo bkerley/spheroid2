@@ -14,20 +14,25 @@
       %li&=s.inspect
 .row
   .span12
-    %form{action: '/stop', method: 'post', target: 'sphero_frame'}
+    %form{action: '/sphero/stop', method: 'post', target: 'sphero_frame'}
       %input{name: '', value: 'stop', type: 'submit', class: 'btn btn-danger'}
-.row
-  .span6
+.row#bigrow
+  .span4
     %h1 Roll
-    %form.well.form-inline{action: '/roll', method: 'post', target: 'sphero_frame'}
+    %form.well.form-inline{action: '/sphero/roll', method: 'post', target: 'sphero_frame'}
       %input{name: 'speed', placeholder: 'speed', type: 'text'}
       %input{name: 'dir', placeholder: 'direction', type: 'text'}
       %input.btn{name: '', value: 'go', type: 'submit'}
-  .span6
-    %h1 realign
-.row
-  .span12
-    %h1 xx
+  .span4
+    %h1 Spin
+    %ul.nav.nav-pills.well
+      %li=spin_swatch "15", 15
+      %li=spin_swatch "128", 128
+      %li=spin_swatch "255", 255
+  .span4
+    %h1 Power
+    %form.well.form_inline{action: '/sphero/power', target: 'sphero_frame'}
+      %input.btn{name: '', value: "what's the frequency", type: 'submit'}
 .row
   .span6
     %h1
@@ -57,7 +62,7 @@
 .row
   .span12
     %h1 Driving
-    %form{action: '/stop', method: 'post', target: 'sphero_frame'}
+    %form{action: '/sphero/stop', method: 'post', target: 'sphero_frame'}
       %input{name: '', value: 'stop', type: 'submit', class: 'btn btn-danger'}
     %ul.nav.well.driving
       - %w{100 150 200 250}.each do |speed|
@@ -67,7 +72,7 @@
             - (0..23).each do |dir_mul|
               %li
                 - dir = (dir_mul * 15) % 360
-                %a.btn.btn-mini{href: "/drive?speed=#{speed}&dir=#{dir}", target: 'sphero_frame'}
+                %a.btn.btn-mini{href: "/sphero/roll?speed=#{speed}&dir=#{dir}", target: 'sphero_frame'}
                   &=dir
 
-%iframe{name: 'sphero_frame', style: 'display: none'}
+%iframe{name: 'sphero_frame'}

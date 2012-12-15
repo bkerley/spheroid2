@@ -7,7 +7,7 @@ class Spheroid
   end
 
   def self.method_missing(name, *args)
-    @spheros.each{|s| s.send name, *args}
+    @spheros.map{|s| s.send name, *args}
   end
 
   def self.balls
